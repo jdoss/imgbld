@@ -1,0 +1,8 @@
+#!/bin/bash -eux
+
+DISK_SPACE=`df --sync -kP / | tail -n1  | awk -F ' ' '{print $4}'`
+COUNT=`expr ${DISK_SPACE} - 100`
+
+dd if=/dev/zero of=/ZERO bs=1024 count=${COUNT}
+rm -f /ZERO
+sync
